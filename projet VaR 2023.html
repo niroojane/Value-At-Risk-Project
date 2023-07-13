@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+<style>
+.chart{height:250px;width:450px;margin-right:1%; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);}
+.chart2{height:250px;width:450px;margin-right:1%; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);}
+.lineCont{display:flex;margin-bottom:5px;}
+.FullPage .sheet {
+height: 155em;
+}
+.noPrint{visibility:hidden;}
+@page { size: A4 }
+@page { margin: 0 }
+body { margin: 0; }
+
+.sheet {
+margin: 0;
+overflow: hidden;
+position: relative;
+box-sizing: border-box;
+page-break-after: always;
+border:1px dashed silver;
+}
+
+/** Paper sizes **/
+body.A4           .sheet { width: 210mm; height: 296mm;margin: 0 auto;font-family:'Quicksand', sans-serif ;}
+body.A4.landscape .sheet { width: 297mm; height: 209mm;margin: 0 auto;}
+
+/** Padding area **/
+.A4 .sheet.padding-10mm { padding: 10mm }
+.FullPage .sheet.padding-10mm { padding: 10mm 10mm 0mm 10mm}
+
+/** For screen preview **/
+@media screen {
+body { background: #e0e0e0 }
+.sheet {
+background: white;
+box-shadow: 0 .5mm 2mm rgba(0,0,0,.3);
+margin: 5mm;
+height: 350mm;
+}
+}
+
+/**     PRINT ME            **/
+@media print {
+#TopPage, #monMenuH, .DivPrintButton  {
+display: none;
+}
+}
+
+/** Fix for Chrome issue #273306 **/
+@media print {
+body.A3.landscape { width: 420mm }
+body.A3, body.A4.landscape { width: 297mm }
+body.A4, body.A5.landscape { width: 210mm }
+body.A5                    { width: 148mm }
+}
+
+/* corps des pages-----------------------------------------*/
+body {
+-webkit-print-color-adjust: exact;
+print-color-adjust: exact;
+}
+.top{height:7%;}
+.FullPage {
+font-size: 13px;
+}
+.A4 {
+font-size: 10px;
+}
+#pBtn{cursor:pointer;}
+.DivPrintButton{
+margin-top: 1px;
+z-index:10;
+position: absolute;
+margin-left: 10mm;
+}
+.logo{float:left.}
+.headerLine{display:flex;}
+.pageTitle{color:rgb(16, 70, 95);font-size:20px;margin-bottom:0px;}
+h1{
+text-shadow: 1px 1px 2px grey;}
+h2{
+text-shadow: 1px 1px 1px rgba(16, 70, 95,0.25);
+border-bottom:1px solid rgba(16, 70, 95,0.25); }
+body{font-family:tahoma;}
+.arrow{width:15px; height:15px;border:1px solid silver;border-radius:10px;margin-left:10px;z-index:3;margin-top:0.25em;}
+.arrow:hover{border-color:rgba(16, 70, 95,1);box-shadow:0px 0px 3px 1px rgba(16, 70, 95,1); cursor:pointer;}
+.subjectTitle{display:flex;border-bottom:1px solid silver;}
+.sTitle{margin:2px;color:rgba(16, 70, 95,0.9);font-size:16px;}
+.subjectText{color:rgba(0,0,0,0.8);font-size:14px;}
+.subjectText>p {text-indent: 50px;}
+.pageBlock{margin-left:20px;}
+ol{font-size:16px;}
+.sq{width:10px;height:10px; border:1px solid gray;margin-right:5px;flex-shrink:0;}
+.BIGsq{width:30px;height:28px; border:1px solid gray;margin-right:5px;flex-shrink:0;width:100%;padding:4px;}
+.BIG6sq{width:30px;height:168px; border:1px solid gray;margin-right:5px;flex-shrink:0;width:100%;padding:4px;}
+.BIG3sq{width:30px;height:84px; border:1px solid gray;margin-right:5px;flex-shrink:0;width:100%;padding:4px;}
+.L{display:flex;margin-top:4px;}
+.S{height:6px;width:10px;}
+.t1{border:1px solid silver;margin-left:40px;}
+.t1 th,td{padding:0px 5px 0px 5px;border:1px solid silver}
+.te{font-size:16px;}
+.intro{font-size:16px;margin-top:5px;margin-left:-18px;padding-top:5px;}
+.small{font-size:14px;}
+ul{list-style-type:disc;font-size:16px;}
+.group{width:240px;}
+</style>
+</head>
+<body class='A4'> <!--A4-->
+
+
+<div id='Page1' class='sheet padding-10mm'>
+	<div class='headerLine'>
+
+		<div style='margin-top:-8px;'>
+			<h2 class='pageTitle' style="margin-left:0px;">Projet VaR - juin  2023 - sujet</h2>	
+		</div>	
+	</div>
+	<div class="pageBlock">
+	<div class="intro">
+	A rendre pour le 21 juin:<br/>
+Vous analysez le risque d’un portefeuille actions et d’un indice ( le DJ stoxx50 ).<br/>
+Vous avez un historique de cours de 6 mois (0,5) , et vous projettez à 1 mois (1/12)<br/>
+Vous avez tous le même indice mais chacun des 9 groupes a un portefeuille différent.<br/>
+</div>
+		<ol>
+			<li>
+			(1 pt) - <b><span style='color:steelblue;'>	Calculez l’exposition de votre portefeuille au risque action :</b> </span>
+			<div class='S'></div>
+			
+			</li>
+			<div class='S'></div>
+			<div class='S'></div>
+			<li>
+			<b><span style='color:steelblue;'>Var historique:</span>
+			</b><div class='S'></div>
+				<ol type="a">
+					<li ><span style='margin-top:-2px;' class='te'>(2 pts) - Calculez les VaR historique à 95% sur 6 mois de l’indice et du portefeuille, en % </span><div class='S'></div></li>
+					<li ><span style='margin-top:-2px;' class='te'>(1 pt) - Calculez la VaR historique relative du portefeuille contre l’indice, en % )</span><div class='S'></li>
+					<li ><span style='margin-top:-2px;' class='te'>(1 pt) - Exprimez la VaR relative en termes de « taux de benchmarking » entre le portefeuille et l’indice. (1 - VaR relative / VaR indice)</span><div class='S'></li>			
+				</ol>
+			</li>
+			<div class='S'></div> 
+			<div class='S'></div>
+			<li>
+			<b><span style='color:steelblue;'>Var paramétrique:</span>
+			</b><div class='S'></div>
+			En vous servant des fonctions du fichier exemples_fonctions:
+			<div class='S'></div>
+				<ol type="a">
+					<li ><span style='margin-top:-2px;' class='te'>(1 pt) - Calculez la volatilité ex-ante de l’indice / vérifiez qu’elle est proche de la volatilité historique. </span><div class='S'></div></li>
+					<li ><span style='margin-top:-2px;' class='te'> (1 pt) - Calculez la volatilité ex-ante du portefeuille / vérifiez qu’elle est proche de la volatilité historique.</span><div class='S'></li>
+				</ol>
+			</li>
+			
+			<div class='S'></div>
+			<div class='S'></div>
+			<li>
+			<b><span style='color:steelblue;'>Var Monte carlo:</span>
+			</b><div class='S'></div>
+				<ol type="a">
+					<li ><span style='margin-top:-2px;' class='te'>(3 pts) En utilisant les epsilons, simulez les 10000 prix de vos facteurs.</span><div class='S'></div></li>
+				
+					<li ><span style='margin-top:-2px;' class='te'>(3 pts) Calculez les VaR et CVaR monte carlo absolues  du portefeuille et de l’indice, ainsi que la var et la CvaR relative, en %.</span><div class='S'></div></li>
+				</ol>
+			</li>			
+			
+			<div class='S'></div>
+			<div class='S'></div>
+			<li>
+			<b><span style='color:steelblue;'>Stress tests:</span>
+			</b><div class='S'></div>
+				<ol type="a">
+					<li ><span style='margin-top:-2px;' class='te'> (1 pt) - Multipliez les volatilités par 1,5. Recalculez les var et cvar relatives et absolues.</span><div class='S'></div></li>
+					<li ><span style='margin-top:-2px;' class='te'>(2 pts) - Refaites les calculs en supposant que la matrice de corrélation vaut 0 ( avec les vols initiales et les volatilités * 1,5 ) </span><div class='S'></li>
+				</ol>
+			</li>			
+			
+			<div class='S'></div>
+			<div class='S'></div>
+			<li>
+			<b><span style='color:steelblue;'>Réduction du risque relatif:</span>
+			</b><div class='S'></div>
+			En vous servant des fonctions du fichier exemples_fonctions:
+				<ol type="a">
+					<li ><span style='margin-top:-2px;' class='te'>(2 pts) - Calculez la variance marginale de chaque ligne du portefeuille.Quel pourcentage de la variance du portefeuille expliquent les 20 premiers contributeurs ?</span><div class='S'></div></li>
+					<li ><span style='margin-top:-2px;' class='te'>(1 pt) - Construisez le portefeuille des différences <span class="small">( facteur * (poids ptf – poids indice))</span> </span><div class='S'></li>
+					<li ><span style='margin-top:-2px;' class='te'>(1 pt) - Calculez la contribution de chaque facteur à la CVaR relative </span><div class='S'></li>
+					<li ><span style='margin-top:-2px;' class='te'>(3 pts) - En vous aidant de a) et c), réduisez la VaR relative au dessous de -2.5% </span><div class='S'></div>
+						<ul  class='small'>
+							<li>Ne rejoutez pas de lignes, n’en supprimez pas</li>
+							<li>Modifiez les poids et les codes si nécessaire ( La somme des poids hors futur doit rester à 100%) </li>
+							<li>Faites le moins d’opérations possibles.</li>
+							
+						</ul>
+					</li>
+				</ol>
+			</li>
+			
+		
+		
+			<div class='S'></div>
+			<div class='S'></div>
+		
+		</ol>
+		
+		
+		
+		
+	</div>
+
+
+</div>
+<div id='Page2' class='sheet padding-10mm'>
+	<div class='headerLine'>
+		<div style='margin-top:-8px;'>
+		<h2 class='pageTitle' style="margin-left:0px;">Projet VaR - Avril - juin  2021 - données</h2>	
+		</div>
+	</div>
+<div class="pageBlock">
+	<div style='font-size:20px;margin-top:10px;'>Contenu du fichier projetVar light :</div>
+	<div style='font-size:16px;margin-top:5px;'>nb: Pour simplifier on suppose un rendement des actifs et un taux de marché nuls: (q=0, r=0)</div>
+		<ul start="">
+			<li>
+			<b>Onglet control_room:
+			</b><div class='S'></div>
+				<ul >
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Inventaire du portefeuille: tableau « tab_ptf ». Ne modifier que les données en rouge.</span><br/>
+					
+					</li>
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Composition de l’indice: tableau « tab_idx »</span></li>
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Ensemble des facteurs: tableau « tab_factors »</span></li>
+					
+				</ul>
+			</li>
+			<div class='S'></div>
+			<div class='S'></div>
+		
+			
+			<li>
+			<b>Onglet clean data:
+			</b><div class='S'></div>
+				<ul >
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Historique des cours /performance des facteurs</span></li>
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Pour chaque facteur de numéro d’ordre f le 
+					champs des perfs est nommé « value_6mf », la volatilité « vol_6m_f », le cours spot « spot_f »<br/>
+					<span class='small'>(Pour le 1er facteur le champ des perfs est nommé « value_6m1 »,la vol "vol_6m_1", le spot "spot_1")</span>
+					</span></li>
+				</ul>
+			</li>
+			<div class='S'></div>
+			<div class='S'></div>
+			<li>
+			
+			
+			<b>Onglet  matrice:
+			</b><div class='S'></div>
+				<ul >
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Matrice de corrélation : champ nommé « matrix »</span></li>
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Factorisation de cholesky : champ nommé « cholesky»
+					<br/><span class='small'>Nb : Par souci de simplification j’ai pré-calculé la factorisation.</span>
+					</span></li>
+				</ul>
+			</li>
+			<div class='S'></div>
+			<div class='S'></div>
+			<li>
+			<b>Onglet halton:
+			</b><div class='S'></div>
+				<ul >
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Matrice Séries de halton : champs nommé « haltons »</span></li>
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Matrice des epsilons : champs nommé « aleas»
+					<br/><span class='small'>Nb : les epsilons sont la combinaison linéaire des séries de halton et des facteurs de cholesky</span> </span></li>
+				
+				</ul>
+			</li>
+			
+			<div class='S'></div>
+			<div class='S'></div>
+			<li>
+			<b>Fonctions et procedures vba :
+			</b><div class='S'></div>
+				<ul >
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Vous avez à votre disposition un certain nombre de fonctions, que vous pouvez utiliser ou réécrire.</span></li>
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Vous trouverez dans le classeur exemples_fonctions des exemples d’application.</span></li>
+	<br/><div class="small">Nb : Pour les fonctions qui renvoient une matrice il faut d’abord sélectionner la plage dans laquelle la fonction sera appliquée, puis presser ctrl / flèche vers le haut / enter. Alternativement encapsulez là dans un tableau variant dans une procédure et ressortez le tableau variant dans une feuille.
+	</div>			
+				</ul>
+			</li>			
+			
+			<div class='S'></div>
+			<div class='S'></div>
+					
+		
+		</ul>
+
+		
+		
+		
+	</div>
+</div>
+<div id='Page3' class='sheet padding-10mm'>
+<div class='headerLine'>
+
+		<div style='margin-top:-8px;'>
+			<h2 class='pageTitle' style="margin-left:0px;">Projet VaR - Avril - juin  2021 - conseils</h2>	
+		</div>
+</div>
+	<ul start="">
+			<li>
+			<b>Calculs excel et vba:
+			</b><div class='S'></div>
+				<ul >
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Utilisez le calcul manuel /recalculez avec F9</span><br/>
+					
+					</li>
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>En VBA :<br/>
+Application.screenupdating=false<br/>
+Application.calculation=xlmanual
+</span></li>
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Manipulez le moins possible l’objet  feuille de calcul:<br/>
+	« Aspirez » les données nécessaires en VBA, faites les calculs, stockez les dans un variant et ressortez les dans une feuille à la fin, si nécessaire.
+</span></li>
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Découpez votre code en sous-parties</span><br/>
+					
+					</li>
+				</ul>
+			</li>
+			<div class='S'></div>
+			<div class='S'></div>
+		
+			
+			<li>
+			<b>Simulations :
+			</b><div class='S'></div>
+				<ul >
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Ecrivez une fonction de calcul prenant en compte l’effet quanto.</span></li>
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Ecrivez les résultats dans une feuille XL. Vous pourrez ainsi les recharger quand nécessaire.<br/></li>
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Anticipez ce dont vous aurez besoin pour les stress tests.<br/></li>
+				
+				</ul>
+			</li>
+			<div class='S'></div>
+			<div class='S'></div>
+			<li>
+			
+			
+			<b>Calcul du portefeuille et de l’indice.
+			</b><div class='S'></div>
+				<ul >
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>calculer la performance de chaque composant et donc la performance de l’indice et du portefeuille  par combinaison linéaire avec les poids, pour chaque simulation.</li>
+					
+				</ul>
+			</li>
+			<div class='S'></div>
+			<div class='S'></div>
+			<li>
+			<b>Réduction du risque:
+			</b><div class='S'></div>
+				<ul >
+					<li class='L'><div class='sq'></div><span style='margin-top:-2px;' class='te'>Prévoyez, pour la question 5, de pouvoir recalculer la contribution à la CVaR relative à chaque changement de poids des actifs.</span></li>
+
+				</ul>
+			</li>
+			
+			<div class='S'></div>
+			<div class='S'></div>	
+		</ul>
+<!--div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:10px;">
+		<table class='group'>
+		<caption>GROUPE 1:  <a href="https://www.alariusconsulting.com/cergy/projet_var/projetVaR_light_groupe1.xlsm">fichier G1</a></caption>
+		<tr><td>BEN KEMOUN</td><td>Corneille</td><td>1</td></tr>
+<tr><td>BEURTON</td><td>Céline</td><td>1</td></tr>
+<tr><td>FALLAH</td><td>Leîla</td><td>1</td></tr>
+<tr><td>GOMES DE OLIVEIRA</td><td>Gabriela</td><td>1</td></tr>
+<tr><td>LEMARCHAND</td><td>Julie</td><td>1</td></tr>
+		</table>
+			<table class='group'>
+		<caption>GROUPE 2:  <a href="https://www.alariusconsulting.com/cergy/projet_var/projetVaR_light_groupe2.xlsm">fichier G2</a></caption>
+<tr><td>ACHIKHAN</td><td>Omaima</td><td>2</td></tr>
+<tr><td>DE SOUSA</td><td>Rémi</td><td>2</td></tr>
+<tr><td>DEPIERRE</td><td>Tristan</td><td>2</td></tr>
+<tr><td>DUTREIX</td><td>Shylla</td><td>2</td></tr>
+<tr><td>KORTCHAGUINE</td><td>Stan</td><td>2</td></tr>
+<tr><td>THOUILLEZ</td><td>Killyan</td><td>2</td></tr>
+
+		</table>	
+		<table class='group'>
+		<caption>GROUPE 3:  <a href="https://www.alariusconsulting.com/cergy/projet_var/projetVaR_light_groupe3.xlsm">fichier G3</a></caption>
+<tr><td>GODWIN</td><td>Pierre-Luc</td><td>3</td></tr>
+<tr><td>MENDES</td><td>Etienne</td><td>3</td></tr>
+<tr><td>PELCA</td><td>Ugo</td><td>3</td></tr>
+<tr><td>REBAH</td><td>Yassir</td><td>3</td></tr>
+<tr><td>VAN</td><td>Emeric</td><td>3</td></tr>
+
+		</table>
+		</div>
+		<div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:10px;">
+		<table class='group'>
+		<caption>GROUPE 4:  <a href="https://www.alariusconsulting.com/cergy/projet_var/projetVaR_light_groupe4.xlsm">fichier G4</a></caption>
+<tr><td>LACAZE </td><td>Jérémy</td><td>4</td></tr>
+<tr><td>ROSE</td><td>Anthony</td><td>4</td></tr>
+
+		</table>
+			<table class='group'>
+		<caption>GROUPE 5:  <a href="https://www.alariusconsulting.com/cergy/projet_var/projetVaR_light_groupe5.xlsm">fichier G5</a></caption>
+<tr><td>MOHAMMAD</td><td>Norin</td><td>5</td></tr>
+<tr><td>MOUGAMADOU</td><td>Wajih</td><td>5</td></tr>
+<tr><td>MURALITHAS</td><td>Dylhan</td><td>5</td></tr>
+<tr><td>VASSIN</td><td>Michel</td><td>5</td></tr>
+
+
+		</table>	
+		<table class='group'>
+		<caption>GROUPE 6:  <a href="https://www.alariusconsulting.com/cergy/projet_var/projetVaR_light_groupe6.xlsm">fichier G6</a></caption>
+<tr><td>ERFAD</td><td>Sofia</td><td>6</td></tr>
+<tr><td>KOITA</td><td>Madina</td><td>6</td></tr>
+<tr><td>MIHELCIC</td><td>Margaux</td><td>6</td></tr>
+<tr><td>ROMAIN</td><td>Yohna</td><td>6</td></tr>
+		</table>
+		</div>
+		<div style="display:flex;justify-content:space-between;font-size:14px;">
+		<table class='group'>
+		<caption>GROUPE 7:  <a href="https://www.alariusconsulting.com/cergy/projet_var/projetVaR_light_groupe7.xlsm">fichier G7</a></caption>
+<tr><td>CORNET</td><td>Victor</td><td>7</td></tr>
+<tr><td>DEBOVE</td><td>Enzo</td><td>7</td></tr>
+<tr><td>HASSANALY
+ HAIDARALY VALLY</td><td>Imran</td><td>7</td></tr>
+<tr><td>KASONGO KASHAMA</td><td>Christian</td><td>7</td></tr>
+<tr><td>MILLER</td><td>Henry</td><td>7</td></tr>
+<tr><td>SERY</td><td>Cassandre</td><td>7</td></tr>
+		</table>
+			<table class='group'>
+		<caption>GROUPE 8:  <a href="https://www.alariusconsulting.com/cergy/projet_var/projetVaR_light_groupe8.xlsm">fichier G8</a></caption>
+<tr><td>MAILLOTTE</td><td>Jacques-Adrien</td><td>8</td></tr>
+<tr><td>THERRIÉ</td><td>Lucas</td><td>8</td></tr>
+<tr><td>VERGOZ</td><td>Nathacha</td><td>8</td></tr>
+		</table>	
+		<table class='group'>
+		<caption>GROUPE 9:  <a href="https://www.alariusconsulting.com/cergy/projet_var/projetVaR_light_groupe9.xlsm">fichier G9</a></caption>
+<tr><td>MARTIN</td><td>Tiphaine</td><td>9</td></tr>
+<tr><td>NADARAJAH</td><td>Gayathry</td><td>9</td></tr>
+<tr><td>SELLAPIN</td><td>Brian</td><td>9</td></tr>
+		</table>
+		</div>
+</div-->
+
+
+		
+
+<script>
+function GEBI(target){return document.getElementById(target);}
+function QSA(target){return document.querySelectorAll(target);}
+function QS(target){return document.querySelector(target);}
+
+
+//browser detection
+var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;// Opera 8.0+
+var isFirefox = typeof InstallTrigger !== 'undefined';// Firefox 1.0+
+var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));// Safari 3.0+ "[object HTMLElementConstructor]" 
+var isIE = /*@cc_on!@*/false || !!document.documentMode;// Internet Explorer 6-11
+var isEdge = !isIE && !!window.StyleMedia;// Edge 20+
+var isChrome = !!window.chrome /*&& (!!window.chrome.webstore || !!window.chrome.runtime);// Chrome 1 - 71 -ne semble pas fonctionner*/
+
+var clones=[];
+var clones2=[];
+var chartCol=[];
+var chartCol2=[];
+//CLONES
+/*var i;
+for(i=0;i<chartCol.length;i++){clones.push(chartCol[i].cloneNode(true));};
+for(i=0;i<chartCol2.length;i++){clones2.push(chartCol2[i].cloneNode(true));};*/
+
+function printMe(event){
+var i,j;
+document.body.className=document.body.className.replace('FullPage','');
+document.body.className+='A4';
+var btn=event.currentTarget;
+btn.textContent='previous view';
+btn.setAttribute('onclick','reloadPage()');
+var allArrows=QSA('.arrow');
+for(i=0;i<allArrows.length;i++){
+allArrows[i].style.display='none';
+}
+
+}
+
+function reloadPage(){
+location.reload();
+/*document.body.className+='FullPage';
+document.body.className=document.body.className.replace('A4','');
+GEBI('pBtn').textContent='Print preview';
+GEBI('pBtn').setAttribute('onclick','printMe(event)');*/
+}
+function showHide(event){
+	var i;
+	var arrow=event.currentTarget;
+	var mySVG=arrow.children[0];
+	var myG=mySVG.firstElementChild;
+
+	var tDiv=arrow.parentElement.nextElementSibling
+
+	if(myG.getAttribute('transform')==''){
+	myG.setAttribute('transform','rotate(-180,105,100)');
+		tDiv.style.display='';
+		animateStyleRAF(tDiv,'opacity',0,1,250,0,'',easeInOutQuad);	
+	}else{
+		myG.setAttribute('transform','');
+		animateStyleRAF(tDiv,'opacity',1,0,250,0,'',easeInOutQuad);
+}}
+function animateStyleRAF(tgt,prop,start,limit,duration,delay,symbol,f){
+	var symbol;
+	if(symbol==='' || symbol===undefined){symbol='';}
+	var span=Number(limit-start);
+	var coeff=span>=0?1:-1;
+	var speed=span/duration;
+	var starttime=null;
+	if(delay==='' || delay===undefined || delay==0){requestAnimationFrame(function(timestamp){animate(timestamp);});}else{
+      setTimeout(requestAnimationFrame(function(timestamp){animate(timestamp)}),delay)
+    }
+	function animate(timestamp){
+    if (starttime === null) starttime = timestamp;
+    var runtime = timestamp - starttime
+    var progress = f(runtime / duration)
+    tgt.style[prop]=(start+span * progress).toFixed(2) + symbol
+    if (runtime < duration){requestAnimationFrame(function(timestamp){animate(timestamp)})}else{if (coeff==-1){tgt.style.display='none'}}
+        }
+    }
+	
+function expOut(t) {return 1 - Math.pow(2, -10 * t);}
+function easeInQuad(t){return t*t;}
+function easeOutQuad(t){return t*(2-t);}
+function easeInOutQuad(t) { return t<.5 ? 2*t*t : -1+(4-2*t)*t ;}
+function elasticOut(t) {
+   var tau = 2 * Math.PI,
+    a = 1,
+    p = 0.3;
+   var s = Math.asin(1 / (a = Math.max(1, a))) * (p /= tau);
+    return 1 - a * Math.pow(2, -10 * (t = +t)) * Math.sin((t + s) / p);
+  }
+
+
+
+
+</script>
+
+
+</body>
+</html>
